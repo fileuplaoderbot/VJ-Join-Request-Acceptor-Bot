@@ -13,6 +13,8 @@ Nᴀᴍᴇ - {}</b>
 
 @Client.on_message(filters.command('start'))
 async def start_message(c,m):
+    client = c
+    message = m
     if AUTH_CHANNEL:
         try:
             btn = await is_subscribed(client, message, AUTH_CHANNEL)
