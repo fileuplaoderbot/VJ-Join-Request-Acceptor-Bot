@@ -1,3 +1,4 @@
+import re
 from os import environ
 
 API_ID = int(environ.get("API_ID", ""))
@@ -14,3 +15,5 @@ DB_NAME = environ.get("DB_NAME", "vjjoinrequetbot")
 
 # If this is True Then Bot Accept New Join Request 
 NEW_REQ_MODE = bool(environ.get('NEW_REQ_MODE', False))
+id_pattern = re.compile(r'^.\d+$')
+AUTH_CHANNEL = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('AUTH_CHANNEL', '-1002442800721').split()] # give channel id with seperate space. Ex : ('-10073828 -102782829 -1007282828')
