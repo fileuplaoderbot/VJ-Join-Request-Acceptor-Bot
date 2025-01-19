@@ -3,6 +3,19 @@ from pyrogram import Client, filters, enums
 from config import AUTH_CHANNEL, LOG_CHANNEL, API_ID, API_HASH, NEW_REQ_MODE
 from plugins.database import db
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.errors import *
+
+async def is_subscribed(bot, query, channel):
+    btn = []
+    for id in channel:
+        chat = await bot.get_chat(int(id))
+        try:
+            await bot.get_chat_member(id, query.from_user.id)
+        except UserNotParticipant:
+            btn.append([InlineKeyboardButton(f'Join {chat.title}', url=chat.invite_link)])
+        except Exception as e:
+            pass
+    return btn
 
 LOG_TEXT = """<b>#NewUser
     
